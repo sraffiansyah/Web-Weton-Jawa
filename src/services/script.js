@@ -1,3 +1,17 @@
+const today = new Date();
+
+let currentMonth = today.getMonth();
+let currentYear = today.getFullYear();
+
+let firstDayIndex;
+let totalDays;
+
+let wetonUser = {
+    hari: null,    
+    pasaran: null, 
+    neptu: 0        
+};
+
 const NEPTU_HARI = {
     senin: 4,
     selasa: 3,
@@ -59,20 +73,18 @@ const PANCA_SUDA = {
     }
 };
 
-// Variable untuk nyimpan data weton user
-let wetonUser = {
-    hari: null,    
-    pasaran: null, 
-    neptu: 0        
-};
+function getNamaBulan(index) {
+    const namaBulanIndo = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
+        "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        return namaBulanIndo[index];
+}
 
-// ===== Tambahin ini di sini =====
-let currentMonth = new Date().getMonth() + 1; // Ambil bulan sekarang (1-12)
-let currentYear = new Date().getFullYear();   // Ambil tahun sekarang
+function updateKalender() {
+    const firstDayDate = new Date(currentYear, currentMonth, 1);
+    firstDayIndex = firstDayDate.getDay();
+    totalDays = new Date(currentYear, currentMonth + 1, 0).getDate();
+}
 
-// ==========================================
-// 1. FUNGSI KECIL: Hitung Neptu User
-// ==========================================
 function hitungNeptuUser(hari, pasaran) {
     // Pakai toLowerCase() biar aman dari huruf besar/kecil
     const nHari = NEPTU_HARI[hari.toLowerCase()];
@@ -81,9 +93,6 @@ function hitungNeptuUser(hari, pasaran) {
     return nHari + nPasaran;
 }
 
-// ==========================================
-// 2. FUNGSI KECIL: Hitung Neptu Target
-// ==========================================
 function hitungNeptuTarget(hariTarget, pasaranTarget) {
     const nHari = NEPTU_HARI[hariTarget.toLowerCase()];
     const nPasaran = NEPTU_PASARAN[pasaranTarget.toLowerCase()];
@@ -91,17 +100,11 @@ function hitungNeptuTarget(hariTarget, pasaranTarget) {
     return nHari + nPasaran;
 }
 
-// ==========================================
-// 3. FUNGSI KECIL: Jumlahkan & Modulo 8
-// ==========================================
 function hitungSisaBagi(neptuUser, neptuTarget) {
     const totalKeseluruhan = neptuUser + neptuTarget;
     return totalKeseluruhan % 8;
 }
 
-// ==========================================
-// 4. FUNGSI UTAMA: Menggabungkan Semuanya
-// ==========================================
 function hitungPancasuda(hariUser, pasaranUser, hariTarget, pasaranTarget) {
     const nilaiNeptuUser = hitungNeptuUser(hariUser, pasaranUser);
     const nilaiNeptuTarget = hitungNeptuTarget(hariTarget, pasaranTarget);
@@ -110,18 +113,46 @@ function hitungPancasuda(hariUser, pasaranUser, hariTarget, pasaranTarget) {
     return hasilAkhir;
 }
 
-// Test Function 1
-console.log("Neptu User:", hitungNeptuUser('Selasa', 'Legi')); 
-// Harusnya: 8
+function renderKalender(dataBulanIni) {
+    const calendarGrid = document.getElementById("calendar-grid")
+    
+    let html = ""
+    
+    for (let i = 0; i < firstDayIndex; i++) {
+        html += "<div></div>";
+    }
+    
+    for (let day = 1; day <= totalDays; day++) {
+        const dataHariIni = dataBulanIni.find(item => item.day === day);
+        
+    
+        html += `<div class="border p-2">${day}  ${dataHariIni.pasaran}</div>`;
+    }
 
-// Test Function 2
-console.log("Neptu Target:", hitungNeptuTarget('senin', 'Pon')); 
-// Harusnya: 11
+    calendarGrid.innerHTML = html;
+}
 
-// Test Function 3
-console.log("Sisa Bagi:", hitungSisaBagi(8, 11)); 
-// Harusnya: 19 % 8 = 3
+updateKalender();
 
-// Test Function Utama
-console.log("Hasil Akhir:", hitungPancasuda('Selasa', 'Legi', 'senin', 'Pon')); 
-// Harusnya: Object DADI (karena sisa bagi 3)
+
+document.getElementById("next-month").addEventListener("click", function() {
+    currentMonth++;
+    if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+    }
+    updateKalender();
+    ambilDataKalender();
+    document.getElementById("bulan-tahun-label").textContent = `${getNamaBulan(currentMonth)} ${currentYear}`;
+});
+
+document.getElementById("prev-month").addEventListener("click", function() {
+    currentMonth--;
+    if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+    }
+    updateKalender();
+    ambilDataKalender();
+    document.getElementById("bulan-tahun-label").textContent = `${getNamaBulan(currentMonth)} ${currentYear}`;
+});
