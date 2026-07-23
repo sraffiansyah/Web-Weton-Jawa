@@ -1,4 +1,4 @@
-async function ambilDataKalender() {
+async function ambilDataKalender(neptuUser = null) {
     const response = await fetch(`/calendar/calendar_${currentYear}.json`);
     const data = await response.json();
 
@@ -8,7 +8,7 @@ async function ambilDataKalender() {
     const bulanIni = namaBulan[currentMonth]; // ambil nama bulan sesuai index
     const dataBulanIni = data[bulanIni]; // ambil array data bulan itu dari JSON
 
-    renderKalender(dataBulanIni);
+    renderKalender(dataBulanIni, neptuUser);
 }
 
 ambilDataKalender();
