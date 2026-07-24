@@ -8,8 +8,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Project Tanggalan Jawa</title>
 </head>
-<body class="bg-slate-50 min-h-screen">
+<body class="bg-slate-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
     <div class="max-w-4xl mx-auto px-4 py-6 sm:py-10">
+
+        <!-- Top bar: logo + dark mode toggle -->
         <div class="flex justify-between items-center mb-6">
             <div class="flex items-center gap-2">
                 <div class="w-9 h-9 bg-slate-300 dark:bg-slate-600 rounded-lg"></div>
@@ -35,7 +37,7 @@
         </div>
 
         <h1 class="text-2xl sm:text-3xl font-bold text-center text-sky-500">Kalender Weton Jawa</h1>
-        <h2 id="bulan-tahun-label" class="text-lg sm:text-xl text-center font-bold text-slate-700 mt-1 mb-6">Juli 2026</h2>
+        <h2 id="bulan-tahun-label" class="text-lg sm:text-xl text-center font-bold text-slate-700 dark:text-slate-200 mt-1 mb-6">Juli 2026</h2>
 
         <!-- Day Headers -->
         <div class="grid grid-cols-7 gap-1 sm:gap-2 font-bold text-center text-slate-500 dark:text-slate-400 text-[10px] sm:text-sm mb-2">
@@ -46,35 +48,34 @@
             <div><span class="sm:hidden">Kam</span><span class="hidden sm:inline">Kamis</span></div>
             <div><span class="sm:hidden">Jum</span><span class="hidden sm:inline">Jumat</span></div>
             <div><span class="sm:hidden">Sab</span><span class="hidden sm:inline">Sabtu</span></div>
-        </div> 
+        </div>
 
         <!-- Calendar Grid -->
         <div id="calendar-grid" class="grid grid-cols-7 gap-1 sm:gap-2"></div>
 
         <div class="flex justify-between items-center mt-4">
-            <button id="prev-month" class="px-4 py-2 border border-slate-300 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 transition-colors">‹ Prev</button>
-            <button id="next-month" class="px-4 py-2 border border-slate-300 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 transition-colors">Next ›</button>
+            <button id="prev-month" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">‹ Prev</button>
+            <button id="next-month" class="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Next ›</button>
         </div>
 
         <!-- Input Section -->
-        <div class="mt-10 pt-8 border-t border-slate-200">
-            <h2 class="text-xl sm:text-2xl font-bold mb-6 text-center text-slate-800">Cek Hari Baik/Buruk</h2>
+        <div class="mt-10 pt-8 border-t border-slate-200 dark:border-slate-700">
+            <h2 class="text-xl sm:text-2xl font-bold mb-6 text-center text-slate-800 dark:text-slate-100">Cek Hari Baik/Buruk</h2>
 
             <div id="form-input-section" class="max-w-md mx-auto space-y-4">
                 <div>
-                    <label for="mode-input" class="block mb-1.5 text-sm font-semibold text-slate-700">Pilih Metode Input</label>
-                    <select id="mode-input" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-400">
+                    <label for="mode-input" class="block mb-1.5 text-sm font-semibold text-slate-700 dark:text-slate-300">Pilih Metode Input</label>
+                    <select id="mode-input" class="w-full border border-slate-300 dark:border-slate-600 rounded-lg p-2.5 text-sm bg-white dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-400">
                         <option value="">-- Pilih --</option>
                         <option value="hari-pasaran">Saya tau Hari & Pasaran</option>
                         <option value="tanggal-lahir">Saya tau Tanggal Lahir</option>
                     </select>
                 </div>
 
-                <!-- Section Mode A: Hari + Pasaran -->
                 <div id="section-hari-pasaran" class="hidden space-y-4">
                     <div>
-                        <label class="block mb-1.5 text-sm font-semibold text-slate-700">Pilih Hari</label>
-                        <select id="input-hari" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-400">
+                        <label class="block mb-1.5 text-sm font-semibold text-slate-700 dark:text-slate-300">Pilih Hari</label>
+                        <select id="input-hari" class="w-full border border-slate-300 dark:border-slate-600 rounded-lg p-2.5 text-sm bg-white dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-400">
                             <option value="senin">Senin</option>
                             <option value="selasa">Selasa</option>
                             <option value="rabu">Rabu</option>
@@ -84,10 +85,9 @@
                             <option value="minggu">Minggu</option>
                         </select>
                     </div>
-
                     <div>
-                        <label class="block mb-1.5 text-sm font-semibold text-slate-700">Pilih Pasaran</label>
-                        <select id="input-pasaran" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-400">
+                        <label class="block mb-1.5 text-sm font-semibold text-slate-700 dark:text-slate-300">Pilih Pasaran</label>
+                        <select id="input-pasaran" class="w-full border border-slate-300 dark:border-slate-600 rounded-lg p-2.5 text-sm bg-white dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-400">
                             <option value="legi">Legi</option>
                             <option value="pahing">Pahing</option>
                             <option value="pon">Pon</option>
@@ -97,15 +97,14 @@
                     </div>
                 </div>
 
-                <!-- Section Mode B: Tanggal Lahir -->
                 <div id="section-tanggal-lahir" class="hidden">
-                    <label class="block mb-1.5 text-sm font-semibold text-slate-700">Tanggal Lahir</label>
-                    <input type="date" id="input-tanggal-lahir" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-400">
+                    <label class="block mb-1.5 text-sm font-semibold text-slate-700 dark:text-slate-300">Tanggal Lahir</label>
+                    <input type="date" id="input-tanggal-lahir" class="w-full border border-slate-300 dark:border-slate-600 rounded-lg p-2.5 text-sm bg-white dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-400">
                 </div>
 
                 <div>
-                    <label class="block mb-1.5 text-sm font-semibold text-slate-700">Bulan & Tahun yang mau dicek</label>
-                    <input type="month" id="input-bulan-target" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-400">
+                    <label class="block mb-1.5 text-sm font-semibold text-slate-700 dark:text-slate-300">Bulan & Tahun yang mau dicek</label>
+                    <input type="month" id="input-bulan-target" class="w-full border border-slate-300 dark:border-slate-600 rounded-lg p-2.5 text-sm bg-white dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-sky-400">
                 </div>
 
                 <button id="btn-hitung" class="w-full px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition-colors">
@@ -113,16 +112,16 @@
                 </button>
             </div>
 
-            <div id="hasil-info" class="mt-4 text-center font-semibold text-slate-700"></div>
+            <div id="hasil-info" class="mt-4 text-center font-semibold text-slate-700 dark:text-slate-200"></div>
         </div>
 
         <div id="legend-section" class="mt-8 hidden max-w-2xl mx-auto">
-            <h3 class="text-base font-bold mb-3 text-slate-800">Keterangan Warna</h3>
+            <h3 class="text-base font-bold mb-3 text-slate-800 dark:text-slate-100">Keterangan Warna</h3>
             <div id="legend-container" class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3"></div>
         </div>
 
         <div class="text-center">
-            <button id="btn-ubah-weton" class="mt-6 px-4 py-2 border border-slate-300 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100 transition-colors hidden">
+            <button id="btn-ubah-weton" class="mt-6 px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors hidden">
                 Ubah Weton
             </button>
         </div>

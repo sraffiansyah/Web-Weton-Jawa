@@ -164,11 +164,11 @@ function renderLegend() {
         const warna = WARNA_KELAS[item.kelas];
         
         html += `
-            <div class="border rounded-lg p-3 flex items-start gap-2">
+            <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3 flex items-start gap-2 bg-white dark:bg-slate-800">
                 <span class="w-3 h-3 rounded-full ${warna.dot} mt-1 flex-shrink-0"></span>
                 <div>
-                    <div class="font-bold text-sm">${item.nama}</div>
-                    <div class="text-xs text-gray-500">${item.arti}</div>
+                    <div class="font-bold text-sm dark:text-white">${item.nama}</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400">${item.arti}</div>
                 </div>
             </div>
         `;
