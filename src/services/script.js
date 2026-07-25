@@ -1,5 +1,6 @@
 const today = new Date();
 
+let neptuUserAktif = null;
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
 
@@ -59,9 +60,9 @@ const PANCA_SUDA = {
 };
 
 const WARNA_KELAS = {
-    hijau: { dot: "bg-emerald-500", hover: "hover:bg-emerald-50 hover:shadow-[0_0_15px_2px_rgba(16,185,129,0.5)]" },
-    merah: { dot: "bg-red-500", hover: "hover:bg-red-50 hover:shadow-[0_0_15px_2px_rgba(239,68,68,0.5)]" },
-    hitam: { dot: "bg-gray-800", hover: "hover:bg-gray-100 hover:shadow-[0_0_15px_2px_rgba(31,41,55,0.5)]" }
+    hijau: { dot: "bg-emerald-500", hover: "hover:bg-emerald-50 dark:hover:bg-emerald-950 hover:shadow-[0_0_15px_2px_rgba(16,185,129,0.5)]" },
+    merah: { dot: "bg-red-500", hover: "hover:bg-red-50 dark:hover:bg-red-950 hover:shadow-[0_0_15px_2px_rgba(239,68,68,0.5)]" },
+    hitam: { dot: "bg-gray-800 dark:bg-slate-950", hover: "hover:bg-gray-100 dark:hover:bg-slate-950 hover:shadow-[0_0_15px_2px_rgba(0,0,0,0.7)]" }
 };
 
 // Fungsi untuk mendapatkan nama bulan berdasarkan indeks
@@ -116,7 +117,7 @@ function renderKalender(dataBulanIni, neptuUser = null) {
     let html = "";
     
     for (let i = 0; i < firstDayIndex; i++) {
-        html += "<div></div>";
+        html += `<div class="h-16"></div>`;
     }
     
     for (let day = 1; day <= totalDays; day++) {
@@ -132,13 +133,13 @@ function renderKalender(dataBulanIni, neptuUser = null) {
             
             dotHtml = `<span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full ${warna.dot} group-hover:opacity-0 transition-opacity duration-300"></span>`;
             hoverClass = `${warna.hover} group`;
-            namaKategoriHtml = `<span class="hidden group-hover:block text-[10px] font-bold mt-1 uppercase">${hasilPancasuda.nama}</span>`;
+            namaKategoriHtml = `<span class="hidden group-hover:block absolute bottom-1.5 right-1.5 text-[9px] sm:text-[10px] font-bold uppercase">${hasilPancasuda.nama}</span>`;
         }
         
-        html += `
-            <div class="relative border rounded-lg p-2 h-16 text-xs sm:text-sm md:text-base transition-all duration-300 ${hoverClass}">
+            html += `
+                <div class="relative border border-slate-200 dark:border-slate-700 rounded-lg p-2 h-16 text-xs sm:text-sm md:text-base bg-white dark:bg-slate-800 dark:text-white transition-all duration-300 cursor-pointer ${hoverClass}">
                 <div class="font-semibold">${day}</div>
-                <div class="text-gray-500 text-[10px] sm:text-xs">${dataHariIni.pasaran}</div>
+                <div class="text-gray-500 dark:text-gray-400 text-[10px] sm:text-xs">${dataHariIni.pasaran}</div>
                 ${dotHtml}
                 ${namaKategoriHtml}
             </div>
@@ -193,7 +194,7 @@ document.getElementById("next-month").addEventListener("click", function() {
         currentYear++;
     }
     updateKalender();
-    ambilDataKalender();
+    ambilDataKalender(neptuUserAktif);
     document.getElementById("bulan-tahun-label").textContent = `${getNamaBulan(currentMonth)} ${currentYear}`;
 });
 
@@ -211,7 +212,7 @@ document.getElementById("prev-month").addEventListener("click", function() {
         currentYear--;
     }
     updateKalender();
-    ambilDataKalender();
+    ambilDataKalender(neptuUserAktif);
     document.getElementById("bulan-tahun-label").textContent = `${getNamaBulan(currentMonth)} ${currentYear}`;
 });
 
@@ -275,6 +276,7 @@ document.getElementById("btn-hitung").addEventListener("click", async function()
     }
 
     if (neptuUser !== null) {
+        neptuUserAktif = neptuUser;
         const bulanTargetInput = document.getElementById("input-bulan-target").value; // format: "2026-07"
         const bagianTarget = bulanTargetInput.split("-");
         
@@ -293,6 +295,7 @@ document.getElementById("btn-hitung").addEventListener("click", async function()
 
 // Event listener for the "Ubah Weton" button       
 document.getElementById("btn-ubah-weton").addEventListener("click", function() {
+    neptuUserAktif = null;
     document.getElementById("form-input-section").classList.remove("hidden");
     document.getElementById("btn-ubah-weton").classList.add("hidden");
     document.getElementById("legend-section").classList.add("hidden");

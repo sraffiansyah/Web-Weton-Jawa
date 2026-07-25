@@ -6,6 +6,9 @@
     <link href="/src/components/layout/style.css" rel="stylesheet">
     <link href="/src/components/ui/style.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @variant dark (&:where(.dark, .dark *));
+    </style>
     <title>Project Tanggalan Jawa</title>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
@@ -14,7 +17,7 @@
         <!-- Top bar: logo + dark mode toggle -->
         <div class="flex justify-between items-center mb-6">
             <div class="flex items-center gap-2">
-                <div class="w-9 h-9 bg-slate-300 dark:bg-slate-600 rounded-lg"></div>
+                <img src="/src/assets/logo.png" alt="Logo AFFI" class="w-9 h-9 rounded-lg object-contain">
                 <span class="font-semibold text-slate-700 dark:text-slate-300">By Vyy</span>
             </div>
 
