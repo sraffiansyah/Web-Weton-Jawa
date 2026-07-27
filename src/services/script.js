@@ -182,9 +182,8 @@ updateKalender();
 
 // Event listener for the next month button
 document.getElementById("next-month").addEventListener("click", function() {
-    if (currentYear === 2030 && currentMonth === 11) {
+    if (currentYear === 2045 && currentMonth === 11) {
         document.getElementById("next-month").disabled = true;
-        // alert("Kalender hanya tersedia hingga Desember 2030.");
         return;
     }
     
@@ -200,9 +199,8 @@ document.getElementById("next-month").addEventListener("click", function() {
 
 // Event listener for the prev month button
 document.getElementById("prev-month").addEventListener("click", function() {
-    if (currentYear === 2000 && currentMonth === 0) {
+    if (currentYear === 1970 && currentMonth === 0) {
         document.getElementById("prev-month").disabled = true;
-        // alert("Kalender hanya tersedia mulai Januari 2000.");
         return;
     }
 
@@ -254,7 +252,7 @@ document.getElementById("btn-hitung").addEventListener("click", async function()
         const bulanLahir = parseInt(bagian[1]);
         const tanggalLahir = parseInt(bagian[2]);
         
-        if (tahunLahir >= 2000 && tahunLahir <= 2030) {
+        if (tahunLahir >= 1970 && tahunLahir <= 2045) {
             // Ambil dari JSON lokal
             const response = await fetch(`/calendar/calendar_${tahunLahir}.json`);
             const data = await response.json();
@@ -271,7 +269,7 @@ document.getElementById("btn-hitung").addEventListener("click", async function()
             document.getElementById("hasil-info").textContent = `Neptu kamu: ${neptuUser} (${dataHariLahir.weekday} ${dataHariLahir.pasaran})`; 
             
         } else {
-            document.getElementById("hasil-info").textContent = "Maaf, saat ini kalender hanya mendukung tahun 2000-2030. Coba input tanggal lahir dalam rentang tersebut.";
+            document.getElementById("hasil-info").textContent = "Maaf, saat ini kalender hanya mendukung tahun 1970-2045. Coba input tanggal lahir dalam rentang tersebut.";
         }
     }
 
@@ -290,6 +288,7 @@ document.getElementById("btn-hitung").addEventListener("click", async function()
         document.getElementById("form-input-section").classList.add("hidden");
         document.getElementById("btn-ubah-weton").classList.remove("hidden");
         document.getElementById("legend-section").classList.remove("hidden");
+        document.getElementById("btn-download").classList.remove("hidden");
     }
 });
 
@@ -299,6 +298,7 @@ document.getElementById("btn-ubah-weton").addEventListener("click", function() {
     document.getElementById("form-input-section").classList.remove("hidden");
     document.getElementById("btn-ubah-weton").classList.add("hidden");
     document.getElementById("legend-section").classList.add("hidden");
+    document.getElementById("btn-download").classList.add("hidden");
     
     ambilDataKalender();
     document.getElementById("hasil-info").textContent = "";
@@ -308,4 +308,18 @@ renderLegend();
 
 document.getElementById("dn").addEventListener("change", function() {
     document.documentElement.classList.toggle("dark", this.checked);
+});
+
+document.getElementById("btn-download").addEventListener("click", function() {
+    const area = document.getElementById("area-screenshot");
+    const isDark = document.documentElement.classList.contains("dark");
+    
+    html2canvas(area, {
+        backgroundColor: isDark ? "#0f172a" : "#f8fafc"
+    }).then(function(canvas) {
+        const link = document.createElement("a");
+        link.download = `weton-${getNamaBulan(currentMonth)}-${currentYear}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+    });
 });
