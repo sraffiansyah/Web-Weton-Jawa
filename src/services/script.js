@@ -180,6 +180,9 @@ function renderLegend() {
 
 updateKalender();
 
+// Update label bulan-tahun saat pertama kali load
+document.getElementById("bulan-tahun-label").textContent = `${getNamaBulan(currentMonth)} ${currentYear}`;
+
 // Event listener for the next month button
 document.getElementById("next-month").addEventListener("click", function() {
     if (currentYear === 2045 && currentMonth === 11) {
